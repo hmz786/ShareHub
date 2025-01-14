@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter un projet</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/dashboard.css">
+    <link rel="stylesheet" href="CSS/icons.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js"></script>
+    <style>
+        form {
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+        }
+
+        input[type="text"],
+        textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+        }
+
+        input[type="file"] {
+        margin-top: 5px;
+        }
+
+        input[type="submit"] {
+        background-color: #f44336;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+        background-color: #b8362d;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <!-- (logo, rechercher, dark mode, ajouter, nom) -->
+        <div class="app-header">
+            <div class="app-header-left">
+                <a href="index.html"><img th:src="@{/images/logo.png}" width="120" class="app-icon"></a>
+                <p class="app-name">ShareHub</p>
+            </div>
+            <div class="app-header-right">
+
+                
+                <button class="profile-btn">
+                    <span  id="eleve"></span>
+
+                    <div id="dropdown" class="dropdown-content">
+                        <a th:href="@{/deconnexion}">Se déconnecter</a>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        
+        <div style="padding: 50px; padding-top: 0px;">
+            <div id="home" class="projects-section">
+                <div class="projects-section-header">
+                    <h2>Ajouter un projet</h2>
+                </div>
+               
+                <div style="overflow-y: scroll; max-height: 70%">
+                    <form th:action="@{/ajouter/projet/save}" method="post" th:object="${projet}" enctype="multipart/form-data">
+                        <div>
+                          <label for="annee_session">Année de session :</label>
+                          <input type="text" id="annee_session" name="annee_session" th:field="*{anneeSession}">
+                        </div>
+                        <div>
+                            <label for="cour">Selection Cours : </label>
+                            <select id="cour" name="cour" th:field="*{idCours}" >
+                                <th:block th:each="cours : ${listCours}">
+                                    <option th:text="${cours.nom}" th:value="${cours.idCours}"></option>
+                                </th:block>
+                            </select>
+
+
+                        </div>
+                        <div>
+                          <label for="nom_projets">Nom du Projet:</label>
+                          <input type="text" id="nom_projets" name="nom_projets" th:field="*{nom}" >
+                        </div>
+                        <div>
+                          <label for="description">Description du projet :</label>
+                          <textarea id="description" name="description" rows="4" cols="50" th:field="*{description}"></textarea>
+                        </div>
+                        <div>
+                          <label for="video">Vidéo de présentation :</label>
+                          <input type="text" id="video" name="video" th:field="*{video}">
+                        </div><br>
+                        <div>
+                          <label for="fichier">Fichier du projet :</label>
+                          <input type="file" id="fichier" name="file" >
+                        </div>
+                        <div>
+                            <label for="url-git">Lien de GitLab :</label>
+                            <input type="text" id="url-git" name="url-git" th:field="*{urlProjetGit}">
+                        </div><br>
+                        <div>
+                          <input type="submit" value="Soumettre le projet">
+                        </div>
+                      </form>
+                </div>
+            </div>
+        </div>
+    <script src="JS/dash.js" > </script>
+    
+</body>
+</html>

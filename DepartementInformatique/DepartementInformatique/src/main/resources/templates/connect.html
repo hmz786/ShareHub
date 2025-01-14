@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
+    
+  </head>
+<body>
+    <section class="header">
+        <nav>
+            <a href="index.html"><img alt="logo" src="images/logo.png"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a th:href="@{/}" th:text="#{label.accueilMenu}">ACCUEIL</a></li>
+                    <li><a th:href="@{/Propos}" th:text="#{label.apropos}">À PROPOS</a></li>
+                    <li><a th:href="@{/projet}" >PROJETS</a></li>
+                    <li><a th:href="@{/inscription}" th:text="#{label.connecter}">SE CONNECTER</a></li>
+                    <div class="language-links">
+                        <a href="?lang=en" th:text="#{label.en}">Anglais</a>
+                        <a href="?lang=fr" th:text="#{label.fr}">Français</a>
+                    </div>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <nav>
+          <div class="form">
+            <ul class="tab-group">
+              <li class="tab active"><a href="#signup" class="lien">Inscription</a></li>
+              <li class="tab"><a href="#login" class="lien" th:text="#{label.connexion}">Connexion</a></li>
+            </ul>
+            
+            <div class="tab-content">
+              <div id="signup">   
+                <h1 th:text="#{label.inscription}">Inscription gratuite</h1>
+                
+                <form th:action="@{/inscription/save}" action="/" method="post" th:object="${utilisateur}">
+                
+                <div class="top-row">
+                  <div class="field-wrap" >
+                    <input type="text" required autocomplete="off" th:placeholder="#{label.prenom}" th:field="*{prenom}"/>
+                  </div>
+              
+                  <div class="field-wrap">
+                    <input type="text" required autocomplete="off" th:placeholder="#{label.nom}" th:field="*{nom}" />
+                  </div>
+                </div>
+      
+                <div class="field-wrap">
+                  <input type="email" required autocomplete="off" th:placeholder="#{label.addresse}" th:field="*{email}"/>
+                </div>
+
+                    <div class="field-wrap">
+                        <select required id="role" name="utilisateur.accountType.id">
+                            <option th:field="*{accountType.nom}" value="" th:text="#{label.role}">Sélectionnez un rôle</option>
+                            <option th:each="role:${listeRoles}" th:value="${role.id}" th:text="${role.nom}" ></option>
+                        </select>
+                    </div>
+                
+                <div class="field-wrap">
+                  <input type="password" required autocomplete="off" th:placeholder="#{label.motdepass}" th:field="*{motDePasse}" />
+                </div>
+                
+                <button type="submit" class="button button-block" th:text="#{label.commencer}">Commencer</button>
+                
+                </form>
+      
+              </div>
+              
+              <div id="login">   
+                <h1 th:text="#{label.message}">Content de vous revoir!</h1>
+                
+                <form th:action="@{/connexion}" method="post">
+                
+                  <div class="field-wrap">
+                  <input type="email" name="email" th:placeholder="#{label.addresse}" required autocomplete="off"/>
+                </div>
+                
+                <div class="field-wrap">
+                  <input type="password" name="password" th:placeholder="#{label.motdepass}" required autocomplete="off" />
+                </div>
+
+                <div class="field-wrap" style="color: white">
+                    <input style="color: white" type="checkbox" name="sauvegarde" value="yes" th:text="#{label.souvenir}">
+                </div>
+
+
+                
+                <p class="forgot"><a href="#" class="lien" th:text="#{label.connect}">Mot de passe oublié?</a></p>
+                
+                <button class="button button-block" th:text="#{label.button}">Connexion</button>
+                
+                </form>
+      
+              </div>
+              
+            </div>
+            
+          </div>
+        </nav>
+    </section>
+    <script src="JS/connect.js"></script>
+    <style>
+      h1 {
+        text-align:center;
+        color:#fff;
+        font-weight:300;
+        margin:0 0 40px;
+      }
+
+    </style>
+<script>
+    window.onload = function(){
+        var email = getCookie("email");
+        var password = getCookie("password");
+        if (email != "" && password != "") {
+            document.getElementsByName("email")[0].value = email;
+            document.getElementsByName("password")[0].value = password;
+            document.getElementsByName("sauvegarde")[0].checked = true;
+        }
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+</script>
+</body>
+</html>

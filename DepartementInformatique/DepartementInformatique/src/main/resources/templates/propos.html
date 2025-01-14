@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
+    
+  </head>
+<body>
+    <section class="header">
+        <nav>
+            <a href="index.html"><img alt="logo" src="images/logo.png"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a th:href="@{/}" th:text="#{label.accueilMenu}">ACCUEIL</a></li>
+                    <li><a th:href="@{/Propos}" th:text="#{label.apropos}">À PROPOS</a></li>
+                    <li><a th:href="@{/projet}" >PROJETS</a></li>
+                    <li><a th:href="@{/inscription}" th:text="#{label.connecter}">SE CONNECTER</a></li>
+                    <div class="language-links">
+                        <a href="?lang=en" th:text="#{label.en}">Anglais</a>
+                        <a href="?lang=fr" th:text="#{label.fr}">Français</a>
+                    </div>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <div class="main">
+            <div class="contact">
+            <center>
+                <h1>Qui sommes nous?</h1>
+                <p>Nous sommes ShareHub, une plateforme en ligne dédiée au partage et à la collaboration. Notre équipe est composée 
+                    de passionnés de technologie et de partage, unis par une vision commune : créer un espace où les individus peuvent 
+                    se connecter, échanger des idées et collaborer de manière significative.<br><br>
+                    À ShareHub, nous croyons fermement au pouvoir du partage pour enrichir les vies et stimuler l'innovation. Notre 
+                    mission est de fournir une plateforme conviviale et sécurisée où les utilisateurs peuvent partager des fichiers, 
+                    collaborer sur des projets et découvrir de nouvelles idées<br><br>
+                    Nous nous engageons à offrir à nos utilisateurs une expérience exceptionnelle, en mettant l'accent sur la facilité 
+                    d'utilisation, la sécurité et la confidentialité des données. Que vous soyez un étudiant cherchant à partager des 
+                    notes de cours, un professionnel collaborant sur un projet d'équipe ou un créateur partageant ses œuvres avec le monde,
+                    ShareHub est là pour vous aider à réaliser vos objectifs.</p><br>
+                
+                
+                <h1>Contacter nous</h1>
+                <p>Vous avez des questions, des suggestions ou simplement envie de dire bonjour ? Nous serions ravis de vous entendre ! 
+                    Chez ShareHub, nous attachons une grande importance à la communication ouverte et sommes là pour vous aider. Contactez 
+                    notre équipe de support dédiée pour toute question concernant notre plateforme ou nos services. Vous pouvez nous contacter 
+                    via les canaux suivants:<br>
+    
+                    <strong>Email:</strong> info@sharehub.com<br>
+    
+                    <strong>Téléphone:</strong> +1 (555) 123-4567<br>   
+                    
+                </p><br>
+    
+                <h1>Emplacement</h1>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2793.6554751880813!2d-73.58486922372091!3d45.55725577107566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91eace22b9bcf%3A0x18799aed17aa23d9!2sColl%C3%A8ge%20de%20Rosemont!5e0!3m2!1sfr!2sca!4v1700589167524!5m2!1sfr!2sca" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </center>
+            </div>
+        </div>
+    </section>
+    
+    <script src="JS/connect.js"></script>
+    <style>
+      h1 {
+        text-align:center;
+        color:#fff;
+        font-weight:300;
+        margin:0 0 40px;
+      }
+    </style>
+</body>
+</html>

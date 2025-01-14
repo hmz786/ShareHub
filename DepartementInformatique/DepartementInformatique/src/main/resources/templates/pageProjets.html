@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>Projets ShareHub</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        body {
+            /* Si votre photo de fond est sombre, ces styles aideront à rendre le texte plus lisible */
+            color: #ffffff;
+            background-color: #707070; /* Un gris pour s'harmoniser avec la photo, ajustez selon votre photo réelle */
+        }
+        .projects-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            max-width: 960px;
+            margin: 20px auto;
+        }
+        .project-card {
+            background-color: #505050; /* Un gris plus foncé pour les cartes, pour contraster légèrement avec le fond */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombrage plus prononcé pour mieux définir les cartes sur le fond gris */
+            overflow: hidden;
+            width: 300px;
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            color: #ffffff; /* Texte en blanc pour contraste */
+        }
+        .project-header {
+            background-color: #404040; /* Un gris encore plus foncé pour l'entête des cartes */
+            padding: 10px 15px;
+            font-size: 14px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+        }
+        .project-content {
+            padding: 15px;
+            background-color: #505050; /* Harmonisation avec la couleur de la carte */
+        }
+        .projects-title {
+            text-align: center;
+            color: #ffffff; /* Titre en blanc */
+            margin: 20px 0;
+        }
+        .project-link {
+            color: #ADC2A9; /* Couleur pour les liens, ajustez selon votre préférence */
+            text-decoration: none; /* Optionnel: enlève le soulignement des liens */
+        }
+        .project-link:hover {
+            text-decoration: underline; /* Optionnel: souligne les liens au survol */
+        }
+    </style>
+</head>
+<body>
+<section class="header">
+    <nav>
+        <a href="index.html"><img alt="logo" src="images/logo.png"></a>
+        <div class="nav-links" id="navLinks">
+            <i class="fa fa-times" onclick="hideMenu()"></i>
+            <ul>
+                <li><a th:href="@{/}" th:text="#{label.accueilMenu}">ACCUEIL</a></li>
+                <li><a th:href="@{/Propos}" th:text="#{label.apropos}">À PROPOS</a></li>
+                <li><a th:href="@{/projet}" >PROJETS</a></li>
+                <li><a th:href="@{/inscription}" th:text="#{label.connecter}">SE CONNECTER</a></li>
+                <div class="language-links">
+                    <a href="?lang=en" th:text="#{label.en}">Anglais</a>
+                    <a href="?lang=fr" th:text="#{label.fr}">Français</a>
+                </div>
+            </ul>
+        </div>
+        <i class="fa fa-bars" onclick="showMenu()"></i>
+    </nav>
+
+
+    <h1 class="projects-title" th:text="#{label.projetsinfo}">Les projets par nos étudiants</h1>
+
+    <div class="projects-container" th:each="projet : ${listProjet}">
+        <!-- Les cartes de projets ici -->
+        <div class="project-card">
+            <div class="project-header">
+                <span th:text="${projet.anneeSession}"></span>
+            </div>
+            <div class="project-content">
+                <h2 class="project-title" th:text="${projet.nom}"></h2>
+                <p class="project-description" th:text="${projet.description}"></p>
+                <a class="project-link" target="_blank" th:href="${projet.video}">Lien du video</a><br>
+                <a class="project-link" target="_blank" th:href="${projet.urlProjetGit}">Lien de GitLab</a>
+                <!--p class="project-info" th:text="'Id de Etudiant par qui est faite' + ${projet.idEtudiant}"></p>
+                <p class="project-info" th:text="'Id de Professeur Responsable est ' + ${projet.idProfesseur}"></p>
+                <p class="project-info" th:text="'Id de Cours ' + ${projet.idCours}"></p>
+                <p class="project-info" th:text="'Id Evaluation  ' + ${projet.idEvaluation}"></p>-->
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet"  href="/CSS/dashboard.css">
+    <link rel="stylesheet" href="/CSS/icons.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js"></script>
+</head>
+<body>
+<div class="app-container">
+    <!-- HEADER -->
+    <!-- (logo, rechercher, dark mode, ajouter, nom) -->
+    <div class="app-header">
+        <div class="app-header-left">
+            <a href="index.html"><img th:src="@{/images/logo.png}" class="app-icon"></a>
+            <p class="app-name">ShareHub</p>
+            <div class="search-wrapper">
+                <input class="search-input" type="text" placeholder="Rechercher">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search" viewBox="0 0 24 24">
+                    <defs></defs>
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="M21 21l-4.35-4.35"></path>
+                </svg>
+            </div>
+        </div>
+        <div class="app-header-right">
+            <button class="mode-switch" title="Mode sombre">
+                <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
+                    <defs></defs>
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                </svg>
+            </button>
+            <button class="add-btn" title="Ajouter un projet">
+                <a th:href="addproject.html" style="text-decoration: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus btn-icon">
+                        <line x1="12" y1="5" x2="12" y2="19" />
+                        <line x1="5" y1="12" x2="19" y2="12" /></svg>
+                </a>
+            </button>
+            <button class="profile-btn">
+                <span id="eleve" th:text="${utilisateur.nom}"></span>
+
+                <div id="dropdown" class="dropdown-content">
+                    <a th:href="@{/deconnexion}">Se déconnecter</a>
+                </div>
+            </button>
+        </div>
+        <button class="messages-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
+        </button>
+    </div>
+
+    <div class="app-content">
+        <!-- SIDEBAR-->
+        <div class="app-sidebar">
+        </div>
+
+        <!-- SECTION PROJET-->
+        <div id="home" class="projects-section active">
+            <div class="projects-section-header">
+                <p>Mes tutorats</p>
+                <div class="view-actions">
+                    <button class="view-btn list-view" title="List View">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="21" y2="12" />
+                            <line x1="8" y1="18" x2="21" y2="18" />
+                            <line x1="3" y1="6" x2="3.01" y2="6" />
+                            <line x1="3" y1="12" x2="3.01" y2="12" />
+                            <line x1="3" y1="18" x2="3.01" y2="18" />
+                        </svg>
+                    </button>
+                    <button class="view-btn grid-view active" title="Grid View">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
+                            <rect x="3" y="3" width="7" height="7" />
+                            <rect x="14" y="3" width="7" height="7" />
+                            <rect x="14" y="14" width="7" height="7" />
+                            <rect x="3" y="14" width="7" height="7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-boxes jsGridView">
+                <div class="project-box-wrapper" th:each="demande : ${listDemandes}">
+                    <div class="project-box" style="background-color: #fee4cb;">
+                        <div class="project-box-header">
+                            <span>[[${demande.disponibilites}]]</span>
+                        </div>
+                        <div class="project-box-content-header">
+                            <p class="box-content-header" th:text="${demande.coursDemande != null} ? ${demande.coursDemande.nom} : 'Cours non spécifié'"></p>
+                            <p class="box-content-subheader">[[${demande.difficultes}]]</p>
+                        </div>
+                        <div class="box-progress-wrapper">
+                            <p class="box-progress-header">[[${demande.typeRencontre}]]</p>
+                        </div>
+                        <div class="project-box-footer">
+                            <div class="participants">
+                                [[${demande.tuteur}]]
+                            </div>
+                            <div class="days-left" style="color: #ff942e;" th:if="${!demande.statut}">
+                                <form th:action="@{/espaceEP_Etudiant/Tutorat/Update}" method="post">
+                                    <input type="hidden" name="demandeId" th:value="${demande.idTuteur}" />
+                                    <button type="submit" style="background-color: transparent; border: 0;">
+                                        <i class="fa fa-check" style="font-size:14px"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="days-left" style="color: #ff942e;" th:if="${demande.statut}">
+                                En Cours
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="courses" class="projects-section" style="display: none;">
+            <div class="projects-section-header">
+            </div>
+        </div>
+
+
+        <div class="messages-section">
+            <div class="messages">
+                <div class="messages">
+                    <div class="message-box">
+                        <a th:href="@{/espaceEP_Etudiant/Cours}" style="text-decoration: none">Cours</a>
+                    </div>
+                </div>
+                <div class="messages">
+                    <div class="message-box">
+                        <a th:href="@{/espaceEP_Etudiant/Projets}" style="text-decoration: none">Projets</a>
+                    </div>
+                </div>
+                <div class="messages">
+                    <div class="message-box">
+                        <a th:href="@{/espaceEP_Etudiant/Notes}" style="text-decoration: none">Notes de cours</a>
+                    </div>
+                </div>
+                <div class="messages">
+                    <div class="message-box">
+                        <a th:href="@{/espaceEP_Etudiant/Tutorat}" style="text-decoration: none">Service d'aide et de tutorat</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<script th:src="@{/JS/dash.js}"> </script>
+</body>
+</html>

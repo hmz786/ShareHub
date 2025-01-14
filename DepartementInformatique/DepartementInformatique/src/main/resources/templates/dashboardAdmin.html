@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/dashboard.css">
+    <link rel="stylesheet" href="CSS/icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js"></script>
+</head>
+<body>
+<div class="app-container">
+    <div class="app-header">
+        <div class="app-header-left">
+            <a href="index.html"></a>
+            <p class="app-name">ShareHub</p>
+            <div class="search-wrapper">
+                <input class="search-input" type="text" placeholder="Rechercher">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search" viewBox="0 0 24 24">
+                    <defs></defs>
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="M21 21l-4.35-4.35"></path>
+                </svg>
+            </div>
+        </div>
+        <div class="app-header-right">
+            <button class="mode-switch" title="Mode sombre">
+                <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                </svg>
+            </button>
+            <button class="add-btn" title="Ajouter un projet">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+            <button class="profile-btn">
+                <span id="eleve">Admin</span>
+                <div id="dropdown" class="profile-dropdown">
+                    <a href="/deconnexion">Se déconnecter</a>
+                </div>
+            </button>
+        </div>
+        <button class="messages-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
+        </button>
+    </div>
+
+    <div class="app-content">
+        <div class="app-sidebar">
+            <a href="#" class="app-sidebar-link active" onclick="showSection('home')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+            </a>
+            <a href="#" class="app-sidebar-link" onclick="showSection('courses')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-pie-chart" viewBox="0 0 24 24">
+                    <defs />
+                    <path d="M21.21 15.89A10 10 0 118 2.83M22 12A10 10 0 0012 2v10z" />
+                </svg>
+            </a>
+            <a href="#" class="app-sidebar-link" onclick="showSection('calendar')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" /></svg>
+            </a>
+            <a href="#" class="app-sidebar-link" onclick="showSection('settings')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-settings" viewBox="0 0 24 24">
+                    <defs />
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
+                </svg>
+            </a>
+        </div>
+
+        <!-- SECTION PROJET-->
+        <div id="home" class="projects-section active">
+            <div class="projects-section-header">
+                <p>Projets</p>
+                <div class="view-actions">
+                    <button class="view-btn list-view" title="List View">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="21" y2="12" />
+                            <line x1="8" y1="18" x2="21" y2="18" />
+                            <line x1="3" y1="6" x2="3.01" y2="6" />
+                            <line x1="3" y1="12" x2="3.01" y2="12" />
+                            <line x1="3" y1="18" x2="3.01" y2="18" />
+                        </svg>
+                    </button>
+                    <button class="view-btn grid-view active" title="Grid View">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
+                            <rect x="3" y="3" width="7" height="7" />
+                            <rect x="14" y="3" width="7" height="7" />
+                            <rect x="14" y="14" width="7" height="7" />
+                            <rect x="3" y="14" width="7" height="7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="project-boxes jsGridView">
+                <!-- Ajouter les projets avec JavaScript -->
+            </div>
+        </div>
+
+        <!-- SECTION NOTES DE COURS-->
+        <div id="courses" class="projects-section" style="display: none;">
+            <div class="projects-section-header">
+                <p>Notes de cours</p>
+                <div class="view-actions">
+                    <button class="view-btn list-view" title="List View">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="21" y2="12" />
+                            <line x1="8" y1="18" x2="21" y2="18" />
+                            <line x1="3" y1="6" x2="3.01" y2="6" />
+                            <line x1="3" y1="12" x2="3.01" y2="12" />
+                            <line x1="3" y1="18" x2="3.01" y2="18" />
+                        </svg>
+                    </button>
+                    <button class="view-btn grid-view active" title="Grid View">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
+                            <rect x="3" y="3" width="7" height="7" />
+                            <rect x="14" y="3" width="7" height="7" />
+                            <rect x="14" y="14" width="7" height="7" />
+                            <rect x="3" y="14" width="7" height="7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="note-boxes jsGridView">
+                <!-- Ajouter les notes de cours avec JavaScript -->
+            </div>
+        </div>
+
+        <div id="calendar" class="projects-section" style="display: none;">
+            <div class="projects-section-header">
+                <div class="form-container">
+                    <h2>Formulaire d'aide pour les étudiants en difficulté</h2>
+                    <form action="#" method="post">
+                        <div class="form-section">
+                            <h3>Choix du cours</h3>
+                            <select name="cours" id="cours">
+                                <option value="reseautique">Réseautique</option>
+                                <option value="programmation">Programmation</option>
+                            </select>
+                        </div>
+                        <div class="form-section">
+                            <h3>Description des difficultés</h3>
+                            <textarea name="description" id="description" cols="30" rows="5"></textarea>
+                        </div>
+                        <div class="form-section">
+                            <h3>Type de rencontre</h3>
+                            <label><input type="radio" name="rencontre" value="en_ligne"> En ligne</label>
+                            <label><input type="radio" name="rencontre" value="en_presentiel"> En présentiel au collège</label>
+                        </div>
+                        <div class="form-section">
+                            <h3>Disponibilités pour un rendez-vous</h3>
+                            <input type="datetime-local" name="disponibilites" id="disponibilites">
+                        </div>
+                        <div class="form-section">
+                            <h3>Recherche d'un tuteur</h3>
+                            <!-- Champ de recherche de tuteur -->
+                        </div>
+                        <div class="form-section">
+                            <h3>Tuteurs disponibles</h3>
+                            <!-- Liste des tuteurs disponibles -->
+                        </div>
+                        <div class="form-section">
+                            <button type="submit">Envoyer</button>
+                        </div>
+                    </form>
+                    <div class="confirmation-message">
+                        <!-- Message de confirmation ou d'erreur -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="settings" class="projects-section" style="display: none;">
+            <div class="projects-section-header">
+                <p>Gestion des utilisateurs</p>
+                <div class="view-actions">
+                    <button class="add-user-btn" data-user-type="etudiant">Ajouter un étudiant</button>
+                    <button class="add-user-btn" data-user-type="professeur">Ajouter un professeur</button>
+                </div>
+            </div>
+            <div class="projects-section-content">
+                <div class="user-section">
+                    <h3>Étudiants</h3>
+                    <div id="etudiant-list" class="user-list"></div>
+                </div>
+                <div class="user-section">
+                    <h3>Professeurs</h3>
+                    <div id="professeur-list" class="user-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal pour modifier un utilisateur -->
+        <div id="edit-user-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="document.getElementById('edit-user-modal').style.display='none'">&times;</span>
+                <form id="edit-user-form" class="modal-form">
+                    <input type="hidden" id="edit-user-id">
+                    <label for="edit-user-nom">Nom</label>
+                    <input type="text" id="edit-user-nom" required>
+                    <label for="edit-user-prenom">Prénom</label>
+                    <input type="text" id="edit-user-prenom" required>
+                    <label for="edit-user-email">Email</label>
+                    <input type="email" id="edit-user-email" required>
+                    <label for="edit-user-motdepasse">Mot de passe</label>
+                    <input type="password" id="edit-user-motdepasse" required>
+                    <label for="edit-user-accounttype">Type de compte</label>
+                    <select id="edit-user-accounttype" required>
+                        <option value="2">Étudiant</option>
+                        <option value="3">Professeur</option>
+                    </select>
+                    <button type="submit">Sauvegarder</button>
+                    <button type="button" class="cancel-btn" onclick="document.getElementById('edit-user-modal').style.display='none'">Annuler</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="messages-section">
+            <button class="messages-close">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="15" y1="9" x2="9" y2="15" />
+                    <line x1="9" y1="9" x2="15" y2="15" /></svg>
+            </button>
+            <div class="projects-section-header">
+                <p>Messages</p>
+            </div>
+            <div class="messages" id="message-list">
+                <!-- Messages ajoutés avec JavaScript -->
+            </div>
+            <form id="message-form" class="message-form">
+                <input type="text" id="message-content" placeholder="Écrire un message...">
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal pour modifier un projet -->
+    <div id="edit-project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('edit-project-modal').style.display='none'">&times;</span>
+            <form id="edit-project-form" class="modal-form">
+                <input type="hidden" id="edit-project-id">
+                <label for="edit-project-name">Nom du projet</label>
+                <input type="text" id="edit-project-name" required>
+                <label for="edit-project-description">Description</label>
+                <textarea id="edit-project-description" required></textarea>
+                <label for="edit-project-annee-session">Année de session</label>
+                <input type="text" id="edit-project-annee-session" required>
+                <label for="edit-project-url-git">URL du projet Git</label>
+                <input type="url" id="edit-project-url-git" required>
+                <label for="edit-project-video">Vidéo</label>
+                <input type="url" id="edit-project-video" required>
+                <button type="submit">Sauvegarder</button>
+                <button type="button" class="cancel-btn" onclick="document.getElementById('edit-project-modal').style.display='none'">Annuler</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal pour modifier une note de cours -->
+    <div id="edit-note-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('edit-note-modal').style.display='none'">&times;</span>
+            <form id="edit-note-form" class="modal-form">
+                <input type="hidden" id="edit-note-id">
+                <label for="edit-note-title">Titre de la note</label>
+                <input type="text" id="edit-note-title" required>
+                <label for="edit-note-content">Contenu</label>
+                <textarea id="edit-note-content" required></textarea>
+                <button type="submit">Sauvegarder</button>
+                <button type="button" class="cancel-btn" onclick="document.getElementById('edit-note-modal').style.display='none'">Annuler</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="JS/dashboardAdmin.js"></script>
+</div>
+</body>
+</html>

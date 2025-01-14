@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du cours</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/CSS/dashboard.css">
+    <link rel="stylesheet" href="/CSS/icons.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js"></script>
+    <style>
+        form {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        input[type="file"] {
+            margin-top: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #b8362d;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <!-- HEADER -->
+    <!-- (logo, rechercher, dark mode, ajouter, nom) -->
+    <div class="app-header">
+        <div class="app-header-left">
+            <a><img th:src="@{/images/logo.png}" class="app-icon"></a>
+            <p class="app-name">ShareHub</p>
+        </div>
+        <div class="app-header-right">
+
+        </div>
+    </div>
+
+
+    <div style="padding: 50px; padding-top: 0px;">
+        <div id="home" class="projects-section" style="overflow-y: scroll; max-height: 70%">
+            <div class="projects-section-header">
+                <p th:text="${cours.nom}">Nom du cours</p>
+            </div>
+            <p><strong>Description:</strong> <span th:text="${cours.description}"></span></p>
+            <p><strong>Nom du professeur:</strong> <span th:text="${cours.user_id.nom + ' ' +cours.user_id.prenom}"></span></p>
+            <p><strong>Salle:</strong> <span th:text="${cours.salle}"></span></p>
+            <p><strong>Horaire:</strong>  <span th:text="${cours.horaire}"></span></p>
+            <p><strong>Crédits:</strong> <span th:text="${cours.credits}"></span></p><br>
+
+            <div>
+                <h2>Notes de cours</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Contenu</th>
+                        <th>Date de création</th>
+                        <th>Cours</th>
+                        <th>Professeur</th>
+                        <th>Télécharger</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="note : ${listNotes}">
+                        <td th:text="${note.nom}"></td>
+                        <td th:text="${note.contenu}"></td>
+                        <td th:text="${note.dateCreation}"></td>
+                        <td th:text="${note.idCours.nom}"></td>
+                        <td th:text="${note.idUtilisateur.nom}"></td>
+                        <td>
+                            <a th:href="@{/espaceEP_Professeur/Notes/download/{id}(id=${note.idNotesDeCours})}">Télécharger</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+        <a th:href = "@{/espaceEP_Professeur/Cours}"> Retour </a>
+    </div>
+    <script src="JS/dash.js" > </script>
+
+</body>
+</html>

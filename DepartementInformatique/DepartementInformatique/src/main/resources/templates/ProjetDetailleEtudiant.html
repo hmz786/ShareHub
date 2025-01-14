@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du projet</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/CSS/dashboard.css">
+    <link rel="stylesheet" href="/CSS/icons.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js"></script>
+    <style>
+        form {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        input[type="file"] {
+            margin-top: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #b8362d;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <!-- HEADER -->
+    <!-- (logo, rechercher, dark mode, ajouter, nom) -->
+    <div class="app-header">
+        <div class="app-header-left">
+            <a ><img th:src="@{/images/logo.png}" class="app-icon"></a>
+            <p class="app-name">ShareHub</p>
+        </div>
+        <div class="app-header-right">
+
+        </div>
+    </div>
+
+
+    <div style="padding: 50px; padding-top: 0px;">
+        <div id="home" class="projects-section" style="overflow-y: scroll; max-height: 50%">
+            <div class="projects-section-header">
+                <p th:text="${projet.nom}">Nom du Projet</p>
+            </div>
+            <p><strong>Description:</strong> <span th:text="${projet.description}"></span></p>
+            <p><strong>Date de remise:</strong> <span th:text="${projet.AnneeSession}"></span></p>
+            <p><strong>Nom de l'élève:</strong> <span th:text="${projet.user_id.nom + ' ' +projet.user_id.prenom}"></span></p>
+            <p><strong>Cours:</strong> <span th:text="${projet.idCours.nom}"></span></p>
+            <p><strong>Vidéo:</strong></p>
+            <iframe width="420" height="345" th:src="${projet.video}">
+            </iframe>
+            <p><strong>URL Git:</strong> <a th:href="${projet.urlProjetGit}" th:text="${projet.urlProjetGit}"></a></p><br>
+            <div class="evaluations-section">
+                <h3>Évaluation</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Nom du Professeur</th>
+                        <th>Commentaire</th>
+                        <th>Note</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="evaluation : ${evaluations}">
+                        <td th:text="${evaluation.user_id.nom + ' ' + evaluation.user_id.prenom}"></td>
+                        <td th:text="${evaluation.commentaire}"></td>
+                        <td th:text="${evaluation.valeurNote}"></td>
+                    </tr>
+                    </tbody>
+                </table><br>
+
+            </div>
+        </div>
+        <a th:href = "@{/espaceEP_Etudiant/Projets}"> Retour </a>
+    </div>
+    <script src="JS/dash.js" > </script>
+
+</body>
+</html>

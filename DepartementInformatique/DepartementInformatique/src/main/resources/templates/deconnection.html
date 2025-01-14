@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
+    
+  </head>
+<body>
+    <section class="header">
+        <nav>
+            <a th:href="@{/}"><img alt="logo" src="images/logo.png"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a  th:href="@{/}">ACCUEIL</a></li>
+                    <li><a th:href="@{/Propos}">À PROPOS</a></li>
+                    <li><a th:href="@{/ProjetsPublics}">PROJETS</a></li>
+                    <li><a th:href="@{/inscription}">SE CONNECTER</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+
+        <div class="box">
+            <center><h2>Vous avez été déconnecté avec succès. Merci de votre visite sur ShareHub ! 
+                N'hésitez pas à vous reconnecter si vous souhaitez accéder à votre compte à nouveau. 
+                À bientôt !</h2></center>
+        </div>
+    </section>
+    
+    <script src="JS/connect.js"></script>
+    <style>
+      h2 {
+        text-align:center;
+        color:#fff;
+        font-weight:300;
+        margin:0 0 40px;
+        background-color: #f4433673;
+      }
+      .box{
+        padding: 100px;
+      }
+    </style>
+</body>
+</html>

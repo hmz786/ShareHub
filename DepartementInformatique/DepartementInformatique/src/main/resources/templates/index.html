@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portail informatique</title>
+    <link rel="stylesheet" href="CSS/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/fontawesome.min.css" integrity="sha384-BY+fdrpOd3gfeRvTSMT+VUZmA728cfF9Z2G42xpaRkUGu2i3DyzpTURDo5A6CaLK" crossorigin="anonymous">
+
+</head>
+<body>
+    <section class="header">
+        <nav>
+            <a href="index.html"><img alt="logo" src="images/logo.png"></a>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                  <li><a th:href="@{/}" th:text="#{label.accueilMenu}">ACCUEIL</a></li>
+                  <li><a th:href="@{/Propos}" th:text="#{label.apropos}">À PROPOS</a></li>
+                  <li><a th:href="@{/projet}" >PROJETS</a></li>
+                  <li><a th:href="@{/inscription}" th:text="#{label.connecter}">SE CONNECTER</a></li>
+                </ul>
+                <div class="language-links">
+                    <a href="?lang=en" th:text="#{label.en}">Anglais</a>
+                    <a href="?lang=fr" th:text="#{label.fr}">Français</a>
+                </div>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+        <div th:if="${messageInscription}" id="messageInscription" class="alert alert-success">
+            <p th:text="${messageInscription}"></p>
+        </div>
+
+        <div class="text-box">
+            <h1 th:text="#{label.information}">Connectez-vous à l'avenir de l'éducation</h1>
+            <p th:text="#{label.footer}">Bienvenue sur ShareHub, votre destination numérique pour l'échange, la collaboration et la réussite en informatique. Notre
+                <br>plateforme réunit étudiants, professeurs et experts du domaine pour partager des projets innovants, des ressources pédagogiques 
+                <br>et offrir un soutien personnalisé. </p>
+            <a th:href="@{/Propos}" class="hero-btn" th:text="#{label.savoirplus}">En savoir plus</a>
+        </div>
+    </section>
+
+    <section class="course">
+        <h1 th:text="#{label.cour}">Cours que Nous Offrons</h1>
+        <p th:text="#{label.p}">Découvrez notre sélection de cours informatiques conçus pour répondre à vos besoins en développement des compétences
+            techniques.</p>
+
+        <div class="row">
+            <div class="course-col">
+                <h3 th:text="#{label.reseau}">Réseautique</h3>
+                <p th:text="#{label.reseau_intro}">Introduction aux réseaux informatiques, y compris les concepts de base, les protocoles et les technologies utilisées dans les réseaux locaux et étendus.</p>
+            </div>
+            <div class="course-col">
+                <h3 th:text="#{label.prog}">Programmation</h3>
+                <p th:text="#{label.progPh}">Initiation à la programmation informatique, couvrant les langages de programmation courants, les algorithmes et les structures de contrôle.</p>
+            </div>
+            <div class="course-col">
+                <h3 th:text="#{label.soutien}">Soutien Informatique</h3>
+                <p th:text="#{label.soutienInfo}">Exploration des principes fondamentaux de l'informatique, y compris les systèmes d'exploitation, les bases de données et la sécurité informatique.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="campus">
+        <h1 th:text="#{label.collaboration}">Collaboration</h1>
+        <p th:text="#{label.collInfo}">Chez ShareHub, nous croyons en l'importance du travail d'équipe
+            et de l'échange d'idées pour favoriser la réussite académique. </p>
+
+        <div class="row">
+            <div class="campus-col">
+                <img src="images/partager.jpg" alt="cards">
+                <div class="layer">
+                    <h3 th:text="#{label.partage}">Partage de projets</h3>
+                </div>
+            </div>
+            <div class="campus-col">
+                <img src="images/forum.jpg" alt="cards">
+                <div class="layer">
+                    <h3 th:text="#{label.discus}">Discussions sur forums</h3>
+                </div>
+            </div>
+            <div class="campus-col">
+                <img src="images/tutorat.jpg" alt="cards">
+                <div class="layer">
+                    <h3 th:text="#{label.tutorat}">Tutorat en ligne</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="facilities">
+        <h1 th:text="#{label.instal}">Nos Installations</h1>
+        <p th:text="#{label.installInfo}">Découvrez nos installations modernes conçues pour créer un environnement propice à l'apprentissage.</p>
+
+        <div class="row">
+            <div class="facilities-col">
+                <img src="images/bibliothèque.jpg" alt="facilities">
+                <h3 th:text="#{label.biblio}">Bibliothèque de Classe Mondiale</h3>
+                <p th:text="#{label.biblioInfo}">Notre bibliothèque dispose d'une vaste collection de livres et de ressources numériques pour soutenir votre parcours académique. Vous y trouverez un espace calme et confortable pour étudier et approfondir vos connaissances.</p>
+            </div>
+            <div class="facilities-col">
+                <img src="images/informatique.jpg" alt="facilities">
+                <h3 th:text="#{label.aide}">Centre d'Aide en Informatique</h3>
+                <p th:text="#{label.aideInfo}">Notre centre d'aide en informatique est là pour vous accompagner dans vos projets et résoudre vos problèmes techniques. Nos experts sont disponibles pour vous aider à maîtriser les outils informatiques et à développer vos compétences.</p>
+            </div>
+            <div class="facilities-col">
+                <img src="images/salledesport.jpg" alt="facilities">
+                <h3 th:text="#{label.salle}">Salle de Sport de pointe</h3>
+                <p th:text="#{label.salleInfo}">La salle de sport est un lieu où vous pouvez vous entraîner et maintenir votre forme physique. Notre salle est équipée des dernières technologies et offre un environnement propice à l'exercice et au bien-être.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h1 th:text="#{label.retour}">Les retours de nos étudiants</h1>
+        <p th:text="#{label.retourInfo}">Découvrez ce que nos étudiants ont à dire sur leur expérience à ShareHub.</p>
+
+        <div class="row">
+            <div class="testimonials-col">
+                <img src="images/personne1.jpg" alt="facilities">
+
+                <div>
+                    <p th:text="#{label.vue}">ShareHub m'a fourni des ressources inestimables pour exceller dans mes études.</p>
+                    <h3>John Doe</h3>
+                </div>
+            </div>
+            <div class="testimonials-col">
+                <img src="images/personne2.jpg" alt="facilities">
+
+                <div>
+                    <p th:text="#{label.vueInfo}">La communauté solidaire de ShareHub a rendu mon parcours d'apprentissage agréable et enrichissant.</p>
+                    <h3>Jane Doe</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h1 th:text="#{label.inscriver}">Inscrivez-vous à nos différents cours en ligne <br> de n'importe où dans le monde</h1>
+        <a th:href="@{/Propos}" class="hero-btn" th:text="#{label.constacter}">CONTACTEZ-NOUS</a>
+    </section>
+
+    <script>
+        var navLinks = getElementById("navLinks");
+
+        function hideMenu(){
+            navLinks.style.right = "0";
+        }
+        function showMenu(){
+            navLinks.style.right = "-200px"
+        }
+
+    </script>
+</body>
+</html>
+
+<script>
+    // Fonction pour masquer le message d'inscription après un certain délai (en millisecondes)
+    function masquerMessageInscription() {
+        var messageInscription = document.getElementById('messageInscription');
+        if (messageInscription) {
+            messageInscription.classList.add('message-disparait');
+        }
+    }
+
+    // Appel de la fonction après un délai de 3000 millisecondes (3 secondes)
+    setTimeout(masquerMessageInscription, 3000);
+</script>
